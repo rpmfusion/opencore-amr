@@ -1,5 +1,5 @@
 Name:           opencore-amr
-Version:        0.1.1
+Version:        0.1.2
 Release:        1%{?dist}
 Summary:        OpenCORE Adaptive Multi Rate Narrowband and Wideband speech lib
 Group:          System Environment/Libraries
@@ -24,22 +24,19 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n %{name}
-# hack hack hack
-if [ "%{_lib}" = "lib64" ]; then
-  sed -i -e 's|/lib/|/lib64/|g' -e 's|/lib$|/lib64|g' */Makefile
-fi
+%setup -q
+mv opencore/README opencore/README.opencore
 
 
 %build
-make %{?_smp_mflags} CXXFLAGS="$RPM_OPT_FLAGS -x c -std=c99 -fPIC"
+%configure --disable-static
+make %{?_smp_mflags}
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix}
-# we don't want the static libraries
-rm $RPM_BUILD_ROOT%{_libdir}/libopencore-amr??.a
+make install DESTDIR=$RPM_BUILD_ROOT
+rm $RPM_BUILD_ROOT%{_libdir}/libopencore-amr??.la
 
 
 %clean
@@ -53,15 +50,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc opencore/ChangeLog opencore/NOTICE opencore/README
+%doc LICENSE README opencore/ChangeLog opencore/NOTICE opencore/README.opencore
 %{_libdir}/libopencore-amr??.so.*
 
 %files devel
 %defattr(-,root,root,-)
 %{_includedir}/opencore-amr??
 %{_libdir}/libopencore-amr??.so
-
+%{_libdir}/pkgconfig/opencore-amr??.pc
 
 %changelog
+* Sun Oct  4 2009 Hans de Goede <j.w.r.degoede@hhs.nl> 0.1.2-1
+- New upstream release 0.1.2
+
 * Thu Jul 30 2009 Hans de Goede <j.w.r.degoede@hhs.nl> 0.1.1-1
 - First version of the RPM Fusion package
