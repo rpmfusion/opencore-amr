@@ -1,6 +1,6 @@
 Name:           opencore-amr
 Version:        0.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenCORE Adaptive Multi Rate Narrowband and Wideband speech lib
 Group:          System Environment/Libraries
 License:        ASL 2.0
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/opencore-amr??.pc
 
 %changelog
+* Fri Mar 02 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.1.2-3
+- Rebuilt for c++ ABI breakage
+
 * Wed Jan 25 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
