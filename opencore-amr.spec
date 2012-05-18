@@ -1,11 +1,12 @@
 Name:           opencore-amr
 Version:        0.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenCORE Adaptive Multi Rate Narrowband and Wideband speech lib
 Group:          System Environment/Libraries
 License:        ASL 2.0
 URL:            http://sourceforge.net/projects/opencore-amr/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0:         opencore-amr-0.1.3-fix_pc.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
@@ -25,6 +26,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
+%patch0 -p1 -b .fix
 mv opencore/README opencore/README.opencore
 
 
@@ -60,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/opencore-amr??.pc
 
 %changelog
+* Fri May 18 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.1.3-2
+- Fix pkgconfig include
+
 * Sun May 13 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.1.3-1
 - Update to 0.1.3
 
