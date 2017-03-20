@@ -1,13 +1,12 @@
 Name:           opencore-amr
-Version:        0.1.3
-Release:        4%{?dist}
+Version:        0.1.5
+Release:        1%{?dist}
 Summary:        OpenCORE Adaptive Multi Rate Narrowband and Wideband speech lib
 Group:          System Environment/Libraries
 License:        ASL 2.0
 URL:            http://sourceforge.net/projects/opencore-amr/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         opencore-amr-0.1.3-fix_pc.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 Library of OpenCORE Framework implementation of Adaptive Multi Rate Narrowband
@@ -32,17 +31,13 @@ mv opencore/README opencore/README.opencore
 
 %build
 %configure --disable-static
-make %{?_smp_mflags}
+%make_build V=1
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 rm $RPM_BUILD_ROOT%{_libdir}/libopencore-amr??.la
-
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %post -p /sbin/ldconfig
@@ -51,17 +46,19 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
-%doc LICENSE README opencore/ChangeLog opencore/NOTICE opencore/README.opencore
+%doc README opencore/ChangeLog opencore/NOTICE opencore/README.opencore
+%license LICENSE
 %{_libdir}/libopencore-amr??.so.*
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/opencore-amr??
 %{_libdir}/libopencore-amr??.so
 %{_libdir}/pkgconfig/opencore-amr??.pc
 
 %changelog
+* Mon Mar 20 2017 Leigh Scott <leigh123linux@googlemail.com> - 0.1.5-1
+- Update to 0.1.5
+
 * Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 0.1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
