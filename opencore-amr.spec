@@ -1,6 +1,6 @@
 Name:           opencore-amr
 Version:        0.1.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OpenCORE Adaptive Multi Rate Narrowband and Wideband speech lib
 Group:          System Environment/Libraries
 License:        ASL 2.0
@@ -56,6 +56,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libopencore-amr??.la
 %{_libdir}/pkgconfig/opencore-amr??.pc
 
 %changelog
+* Sun Aug 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.1.5-5
+- Rebuilt for Fedora 29 Mass Rebuild binutils issue
+
 * Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.1.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
