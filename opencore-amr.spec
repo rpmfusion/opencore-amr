@@ -1,8 +1,7 @@
 Name:           opencore-amr
 Version:        0.1.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OpenCORE Adaptive Multi Rate Narrowband and Wideband speech lib
-Group:          System Environment/Libraries
 License:        ASL 2.0
 URL:            http://sourceforge.net/projects/opencore-amr/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -15,8 +14,7 @@ and Wideband speech codec.
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Libraries
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -35,14 +33,11 @@ mv opencore/README opencore/README.opencore
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %make_install
 rm $RPM_BUILD_ROOT%{_libdir}/libopencore-amr??.la
 
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 
 %files
@@ -56,6 +51,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libopencore-amr??.la
 %{_libdir}/pkgconfig/opencore-amr??.pc
 
 %changelog
+* Tue Dec 11 2018 Nicolas Chauvet <kwizart@gmail.com> - 0.1.5-6
+- Spec file clean-up
+
 * Sun Aug 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.1.5-5
 - Rebuilt for Fedora 29 Mass Rebuild binutils issue
 
