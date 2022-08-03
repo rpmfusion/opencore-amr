@@ -1,13 +1,12 @@
 Name:           opencore-amr
-Version:        0.1.5
-Release:        14%{?dist}
+Version:        0.1.6
+Release:        1%{?dist}
 Summary:        OpenCORE Adaptive Multi Rate Narrowband and Wideband speech lib
 License:        ASL 2.0
 URL:            http://sourceforge.net/projects/opencore-amr/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         opencore-amr-0.1.3-fix_pc.patch
 
-BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
 
@@ -26,14 +25,13 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
-%patch0 -p1 -b .fix
+%autosetup -p1
 mv opencore/README opencore/README.opencore
 
 
 %build
 %configure --disable-static
-%make_build V=1
+%make_build
 
 
 %install
@@ -55,6 +53,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libopencore-amr??.la
 %{_libdir}/pkgconfig/opencore-amr??.pc
 
 %changelog
+* Wed Aug 03 2022 Leigh Scott <leigh123linux@gmail.com> - 0.1.6-1
+- Update to 0.1.6
+
 * Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.1.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
